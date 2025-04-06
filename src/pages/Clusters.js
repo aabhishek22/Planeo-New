@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Modal from '../components/Modal';
+import AddClusterForm from '../components/AddClusterForm';
 
 function Clusters() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,6 +41,11 @@ function Clusters() {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleAddCluster = () => {
+    // Handle form submission
+    toggleModal();
+  };
+
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-6">
@@ -55,54 +62,26 @@ function Clusters() {
         </button>
       </div>
 
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-[#1C1E21] p-8 rounded-lg w-[500px]">
-            <div className="flex justify-between items-center mb-8">
-              <h2 className="text-white text-2xl font-semibold">Add Cluster</h2>
-              <button onClick={toggleModal} className="text-gray-400 hover:text-white text-2xl">
-                ×
-              </button>
-            </div>
-            
-            <div className="space-y-6">
-              <div>
-                <label className="block text-white text-lg mb-3">Name</label>
-                <input
-                  type="text"
-                  placeholder="Cluster name"
-                  className="w-full bg-[#2C2E31] text-white rounded-lg px-4 py-3 placeholder-gray-500"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-white text-lg mb-3">Context</label>
-                <select className="w-full bg-[#2C2E31] text-gray-500 rounded-lg px-4 py-3 appearance-none">
-                  <option>Select a config file</option>
-                  {/* Add options here */}
-                </select>
-              </div>
-
-              <button className="w-full bg-[#6366F1] hover:bg-[#5558E6] text-white py-3 rounded-lg mt-4 text-lg">
-                Add
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Using the Modal component */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={toggleModal}
+        title="Add Cluster"
+      >
+        <AddClusterForm onSubmit={handleAddCluster} />
+      </Modal>
 
       <div className="relative mb-6">
         <input
           type="text"
           placeholder="Search Clusters"
-          className="w-full bg-gray-800 rounded-md px-4 py-2 pl-10"
+          className="w-full bg-gray-800 rounded-md px-4 py-2 pl-10 border border-gray-700"
         />
         <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
       </div>
 
-      <div className="bg-gray-800 rounded-lg overflow-hidden">
-        <table className="w-full">
+      <div className="bg-gray-800 rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+        <table className="w-full ">
           <thead>
             <tr className="border-b border-gray-700">
               <th className="text-center p-4 text-white">Name</th>
