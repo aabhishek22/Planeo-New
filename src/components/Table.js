@@ -24,8 +24,18 @@ function Table({ columns, data, onDelete, onEdit }) {
                   {row.name}
                 </div>
               </td>
-              <td className="p-4 text-white text-center">{row.cluster}</td>
-              <td className="p-4 text-white text-center">{row.namespace}</td>
+              {columns.includes('Path') && (
+                <td className="p-4 text-white text-center">{row.path}</td>
+              )}
+              {columns.includes('Context') && (
+                <td className="p-4 text-white text-center">{row.context}</td>
+              )}
+              {columns.includes('Cluster') && (
+                <td className="p-4 text-white text-center">{row.cluster}</td>
+              )}
+              {columns.includes('Namespace') && (
+                <td className="p-4 text-white text-center">{row.namespace}</td>
+              )}
               <td className="p-4 text-white text-center">
                 <div className="flex items-center justify-center gap-2">
                   <button 
