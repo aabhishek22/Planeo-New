@@ -126,7 +126,7 @@ function Clusters() {
                 <input
                     type="text"
                     placeholder="Search Clusters"
-                    className="w-full bg-gray-800 rounded-md px-4 py-2 pl-10 border border-gray-700"
+                    className="w-full bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
                 />
                 <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
             </div>

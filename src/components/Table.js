@@ -4,7 +4,7 @@ import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 
 function Table({ columns, data, onDelete, onEdit }) {
   return (
-    <div className="bg-gray-800 rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+    <div className="bg-[#2F3039] rounded-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
       <table className="w-full">
         <thead>
           <tr className="border-b border-gray-700">
@@ -24,8 +24,8 @@ function Table({ columns, data, onDelete, onEdit }) {
                   {row.name}
                 </div>
               </td>
-              <td className="p-4 text-white text-center">{row.path}</td>
-              <td className="p-4 text-white text-center">{row.context}</td>
+              <td className="p-4 text-white text-center">{row.cluster}</td>
+              <td className="p-4 text-white text-center">{row.namespace}</td>
               <td className="p-4 text-white text-center">
                 <div className="flex items-center justify-center gap-2">
                   <button 
