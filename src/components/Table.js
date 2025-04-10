@@ -1,6 +1,5 @@
-import React from 'react';
+import React from "react";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
-
 
 function Table({ columns, data, onDelete, onEdit }) {
   return (
@@ -20,31 +19,57 @@ function Table({ columns, data, onDelete, onEdit }) {
             <tr key={row.name} className="hover:bg-gray-700">
               <td className="p-4">
                 <div className="flex items-center justify-center gap-2 text-white">
-                  <div className={`w-2 h-2 rounded-full ${row.status === 'active' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                  <div
+                    className={`w-2 h-2 rounded-full ${
+                      row.status === "active" ? "bg-green-500" : "bg-red-500"
+                    }`}
+                  ></div>
                   {row.name}
                 </div>
               </td>
-              {columns.includes('Path') && (
+              {columns.includes("Path") && (
                 <td className="p-4 text-white text-center">{row.path}</td>
               )}
-              {columns.includes('Context') && (
+              {columns.includes("Environment") && (
+                <td className="p-4 text-white text-center">
+                  {row.environment}
+                </td>
+              )}
+              {columns.includes("Context") && (
                 <td className="p-4 text-white text-center">{row.context}</td>
               )}
-              {columns.includes('Cluster') && (
+              {columns.includes("Cluster") && (
                 <td className="p-4 text-white text-center">{row.cluster}</td>
               )}
-              {columns.includes('Namespace') && (
+              {columns.includes("Source") && (
+                <td className="p-4 text-white text-center">{row.source}</td>
+              )}
+              {columns.includes("Namespace") && (
                 <td className="p-4 text-white text-center">{row.namespace}</td>
+              )}
+              {columns.includes("Template") && (
+                <td className="p-4 text-white text-center">{row.template}</td>
+              )}
+              {columns.includes("Release name") && (
+                <td className="p-4 text-white text-center">
+                  {row.releaseName}
+                </td>
+              )}
+              {columns.includes("Repository") && (
+                <td className="p-4 text-white text-center">{row.repository}</td>
+              )}
+              {columns.includes("Chart") && (
+                <td className="p-4 text-white text-center">{row.chart}</td>
               )}
               <td className="p-4 text-white text-center">
                 <div className="flex items-center justify-center gap-2">
-                  <button 
+                  <button
                     className="text-white hover:text-white"
                     onClick={() => onDelete && onDelete(row)}
                   >
                     <MdOutlineDelete size={20} />
                   </button>
-                  <button 
+                  <button
                     className="text-white hover:text-white"
                     onClick={() => onEdit && onEdit(row)}
                   >
@@ -60,4 +85,4 @@ function Table({ columns, data, onDelete, onEdit }) {
   );
 }
 
-export default Table; 
+export default Table;
