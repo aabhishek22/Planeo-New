@@ -158,23 +158,23 @@ function AddTemplateForm({ onSubmit }) {
                   ref={textareaRef}
                   value={text}
                   onChange={handleChangeText}
-                  className="bg-gray-800 w-full border-none resize-none overflow-hidden   focus:outline-none focus:ring-0"
-                  rows={1}
+                  className="bg-gray-800 w-full border-none resize-none overflow-y-auto max-h-40   focus:outline-none focus:ring-0"
+                  rows={5}
                 />
                 <button
                   type="button"
                   onClick={() => handleSaveYaml()}
-                  className="absolute bottom-3 right-3 bg-blue-500 text-white text-xs py-1 px-3 rounded hover:bg-blue-600 transition-colors"
+                  className="absolute bottom-3 right-8 bg-blue-500 text-white text-xs py-1 px-3 rounded hover:bg-blue-600 transition-colors"
                 >
                   Save
                 </button>
               </div>
             ) : (
               <div className="text-sm">
-                <div className="grid grid-cols-3 mb-2">
-                  <div className="text-gray-300 pl-2">name</div>
-                  <div className="text-gray-300">default</div>
-                  <div className="text-gray-300">required</div>
+                <div className="grid grid-cols-3 mb-2 ">
+                  <div className="text-gray-300 pl-2">Name</div>
+                  <div className="text-gray-300 pl-5">Default</div>
+                  <div className="text-gray-300 pl-8">Required</div>
                 </div>
 
                 {argumentContent?.map((arg, index) => (

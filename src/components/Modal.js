@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-function Modal({ isOpen, onClose, title, children }) {
+function Modal({ isOpen, onClose, title, children, paragraph }) {
   if (!isOpen) return null;
 
   return (
@@ -8,8 +8,9 @@ function Modal({ isOpen, onClose, title, children }) {
       <div className="bg-[#1C1E21] p-8 rounded-lg w-[500px] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-slideUp">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-white text-2xl font-semibold">{title}</h2>
-          <button 
-            onClick={onClose} 
+          {/* <p className="text-white text-xl font-semibold">{paragraph}</p> */}
+          <button
+            onClick={onClose}
             className="text-gray-400 hover:text-white text-2xl transition-colors duration-200"
           >
             ×
@@ -21,4 +22,4 @@ function Modal({ isOpen, onClose, title, children }) {
   );
 }
 
-export default Modal; 
+export default Modal;

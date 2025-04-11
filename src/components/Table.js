@@ -1,5 +1,5 @@
 import React from "react";
-import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
+import { MdErrorOutline, MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 
 function Table({ columns, data, onDelete, onEdit }) {
   return (
@@ -63,6 +63,12 @@ function Table({ columns, data, onDelete, onEdit }) {
               )}
               <td className="p-4 text-white text-center">
                 <div className="flex items-center justify-center gap-2">
+                  <button
+                    className="text-white hover:text-white"
+                    onClick={() => onDelete && onDelete(row)}
+                  >
+                    <MdErrorOutline size={20} />
+                  </button>
                   <button
                     className="text-white hover:text-white"
                     onClick={() => onDelete && onDelete(row)}
