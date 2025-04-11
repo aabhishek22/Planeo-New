@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../components/Table";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 import Modal from "../components/Modal";
@@ -11,6 +11,8 @@ function Stacks() {
   const [selectedEnvironment, setSelectedEnvironment] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [environmentToDelete, setEnvironmentToDelete] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [foundedDataList, setFoundDataList] = useState([]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -36,14 +38,14 @@ function Stacks() {
     },
     {
       name: "myapp-service",
-      environment: "dev-1",
+      environment: "dev-2",
       template: "demo-app",
       releaseName: "myappservice",
       status: "active",
     },
     {
       name: "myapp-service",
-      environment: "dev-1",
+      environment: "dev-3",
       template: "demo-app",
       releaseName: "myappservice",
 
@@ -68,6 +70,21 @@ function Stacks() {
     toggleDeleteModal();
   };
 
+  const findingValue = () => {
+    const foundValue = environments.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.releaseName.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.environment.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.template.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFoundDataList(foundValue);
+  };
+
+  useEffect(() => {
+    findingValue();
+  }, [searchValue]);
+
   return (
     <div className="p-8">
       {/* <h1 className="text-2xl font-bold">Templates</h1> */}
@@ -78,28 +95,47 @@ function Stacks() {
           <span className="text-white">|</span>
           <h1 className="text-xl">Stacks</h1>
         </div>
-        <button
+        {/* <button
           onClick={toggleModal}
           className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
         >
           <span>+</span> Create Stacks
-        </button>
+        </button> */}
       </div>
 
-      <div className="relative mb-6">
+      <h1 className="text-2xl font-semibold text-white mb-2 ">Stacks</h1>
+
+      {/* <div className="relative mb-6">
         <input
           type="text"
           placeholder="Search Stacks"
           className="w-1/4 bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
         />
         <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
-      </div>
+      </div> */}
 
+      <div className=" flex items-center justify-between mb-6">
+        <div className="relative  ">
+          <input
+            type="text"
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Search Stacks"
+            className=" bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
+          />
+          <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
+        </div>
+        <button
+          onClick={toggleModal}
+          className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+        >
+          <span>+</span> Add Stacks
+        </button>
+      </div>
       {/* Edit Environment Modal */}
       <Modal
         isOpen={isEditModalOpen}
         onClose={toggleEditModal}
-        title="Edit Template"
+        title="Edit Stacks"
       >
         <EditStackForm
           onSubmit={handleEditStack}
@@ -140,7 +176,7 @@ function Stacks() {
 
       <Table
         columns={["Name", "Environment", "Template", "Release name", "Action"]}
-        data={environments}
+        data={foundedDataList.length > 0 ? foundedDataList : environments}
         onDelete={toggleDeleteModal}
         onEdit={toggleEditModal}
       />

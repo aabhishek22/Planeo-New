@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Modal from '../components/Modal';
-import AddEnvironmentForm from '../components/AddEnvironmentForm';
-import EditEnvironmentForm from '../components/EditEnvironmentForm';
-import Table from '../components/Table';
+import React, { useEffect, useState } from "react";
+import Modal from "../components/Modal";
+import AddEnvironmentForm from "../components/AddEnvironmentForm";
+import EditEnvironmentForm from "../components/EditEnvironmentForm";
+import Table from "../components/Table";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 
 function Environments() {
@@ -11,26 +11,28 @@ function Environments() {
   const [selectedEnvironment, setSelectedEnvironment] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [environmentToDelete, setEnvironmentToDelete] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [foundedDataList, setFoundDataList] = useState([]);
 
   const environments = [
     {
-      name: 'dev-1',
-      cluster: 'GCP Dev',
-      namespace: 'planeo-testuser-dev-1',
-      status: 'active'
+      name: "dev-1",
+      cluster: "GCP Dev",
+      namespace: "planeo-testuser-dev-1",
+      status: "active",
     },
     {
-      name: 'dev-1',
-      cluster: 'GCP Dev',
-      namespace: 'planeo-testuser-dev-1',
-      status: 'active'
+      name: "dev-2",
+      cluster: "GCP Dev",
+      namespace: "planeo-testuser-dev-2",
+      status: "active",
     },
     {
-      name: 'dev-1',
-      cluster: 'GCP Dev',
-      namespace: 'planeo-testuser-dev-1',
-      status: 'inactive'
-    }
+      name: "dev-3",
+      cluster: "GCP Dev",
+      namespace: "planeo-testuser-dev-3",
+      status: "inactive",
+    },
   ];
 
   const toggleModal = () => {
@@ -53,16 +55,30 @@ function Environments() {
   };
 
   const handleEditEnvironment = (updatedData) => {
-    console.log('Updated environment data:', updatedData);
+    console.log("Updated environment data:", updatedData);
     // Handle the update logic here
     toggleEditModal();
   };
 
   const handleDeleteConfirm = () => {
-    console.log('Deleting environment:', environmentToDelete);
+    console.log("Deleting environment:", environmentToDelete);
     // Handle actual deletion here
     toggleDeleteModal();
   };
+
+  const findingValue = () => {
+    const foundValue = environments.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.namespace.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.cluster.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFoundDataList(foundValue);
+  };
+
+  useEffect(() => {
+    findingValue();
+  }, [searchValue]);
 
   return (
     <div className="p-8">
@@ -72,13 +88,15 @@ function Environments() {
           <span className="text-white">|</span>
           <h1 className="text-xl">Environments</h1>
         </div>
-        <button
+        {/* <button
           onClick={toggleModal}
           className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
         >
           <span>+</span> Create Environment
-        </button>
+        </button> */}
       </div>
+
+      <h1 className="text-2xl font-semibold text-white mb-2 ">Environment</h1>
 
       {/* Add Environment Modal */}
       <Modal
@@ -95,11 +113,29 @@ function Environments() {
         onClose={toggleEditModal}
         title="Edit Environment"
       >
-        <EditEnvironmentForm 
+        <EditEnvironmentForm
           onSubmit={handleEditEnvironment}
           environment={selectedEnvironment}
         />
       </Modal>
+
+      <div className=" flex items-center justify-between mb-6">
+        <div className="relative  ">
+          <input
+            type="text"
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Search Environments"
+            className=" bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
+          />
+          <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
+        </div>
+        <button
+          onClick={toggleModal}
+          className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+        >
+          <span>+</span> Create Environments
+        </button>
+      </div>
 
       {/* Delete Confirmation Modal */}
       <Modal
@@ -128,18 +164,18 @@ function Environments() {
         </div>
       </Modal>
 
-      <div className="relative mb-6">
+      {/* <div className="relative mb-6">
         <input
           type="text"
           placeholder="Search Environments"
           className="w-1/4 bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
         />
         <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
-      </div>
+      </div> */}
 
-      <Table 
-        columns={['Name', 'Cluster', 'Namespace', 'Action']}
-        data={environments}
+      <Table
+        columns={["Name", "Cluster", "Namespace", "Action"]}
+        data={foundedDataList.length > 0 ? foundedDataList : environments}
         onDelete={toggleDeleteModal}
         onEdit={toggleEditModal}
       />
@@ -147,4 +183,4 @@ function Environments() {
   );
 }
 
-export default Environments; 
+export default Environments;

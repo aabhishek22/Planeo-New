@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../components/Table";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 import Modal from "../components/Modal";
@@ -11,6 +11,8 @@ function Templates() {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [environmentToDelete, setEnvironmentToDelete] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [foundedDataList, setFoundDataList] = useState([]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -18,7 +20,7 @@ function Templates() {
 
   const templatesData = [
     {
-      name: "demo-app",
+      name: "demo-app-1",
       source: "https://helm.github.io/examples",
       repository: "examples",
       chart: "hello-world",
@@ -26,14 +28,14 @@ function Templates() {
       status: "active",
     },
     {
-      name: "demo-app",
+      name: "demo-app-2",
       source: "https://helm.github.io/examples",
       repository: "examples",
       chart: "hello-world",
       status: "active",
     },
     {
-      name: "demo-app",
+      name: "demo-app-3",
       source: "https://helm.github.io/examples",
       repository: "examples",
       chart: "hello-world",
@@ -69,6 +71,21 @@ function Templates() {
     toggleDeleteModal();
   };
 
+  const findingValue = () => {
+    const foundValue = templatesData.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.chart.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.source.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.repository.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFoundDataList(foundValue);
+  };
+
+  useEffect(() => {
+    findingValue();
+  }, [searchValue]);
+
   return (
     <div className="p-8">
       {/* <h1 className="text-2xl font-bold">Templates</h1> */}
@@ -79,21 +96,41 @@ function Templates() {
           <span className="text-white">|</span>
           <h1 className="text-xl">Templates</h1>
         </div>
-        <button
+        {/* <button
           onClick={toggleModal}
           className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
         >
           <span>+</span> Add Templates
-        </button>
+        </button> */}
       </div>
 
-      <div className="relative mb-6">
+      <h1 className="text-2xl font-semibold text-white mb-2 ">Templates</h1>
+
+      {/* <div className="relative mb-6">
         <input
           type="text"
           placeholder="Search Templates"
           className="w-1/4 bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
         />
         <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
+      </div> */}
+
+      <div className=" flex items-center justify-between mb-6">
+        <div className="relative  ">
+          <input
+            type="text"
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Search Templates"
+            className=" bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
+          />
+          <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
+        </div>
+        <button
+          onClick={toggleModal}
+          className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+        >
+          <span>+</span> Add Templates
+        </button>
       </div>
 
       {/* Edit Environment Modal */}
@@ -141,7 +178,7 @@ function Templates() {
 
       <Table
         columns={["Name", "Source", "Repository", "Chart", "Action"]}
-        data={templatesData}
+        data={foundedDataList.length > 0 ? foundedDataList : templatesData}
         onDelete={toggleDeleteModal}
         onEdit={toggleEditModal}
       />
