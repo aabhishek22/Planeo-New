@@ -101,15 +101,15 @@ function Clusters() {
 
   return (
     <div className="p-8">
-      <div className="flex justify-between items-center mb-6">
+      {/* <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-2">
           <button className="text-white">← Back</button>
           <span className="text-white">|</span>
           <h1 className="text-xl">Clusters</h1>
         </div>
-      </div>
+      </div> */}
 
-      <h1 className="text-2xl font-semibold text-white mb-2 ">Cluster</h1>
+      <h1 className="text-3xl font-semibold text-white my-10 ">Cluster</h1>
       {/* <p className="text-white mb-8 px-8">Overview of your environments</p> */}
 
       {/* Add Cluster Modal */}
@@ -130,12 +130,12 @@ function Clusters() {
       </Modal>
 
       <div className=" flex items-center justify-between mb-6">
-        <div className="relative  ">
+        <div className="relative">
           <input
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search Clusters"
-            className=" bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
+            className=" bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700 w-[400px]"
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
         </div>

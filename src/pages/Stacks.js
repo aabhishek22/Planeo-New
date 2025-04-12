@@ -90,11 +90,11 @@ function Stacks() {
       {/* <h1 className="text-2xl font-bold">Templates</h1> */}
       {/* Add your templates content here */}
       <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <button className="text-white">← Back</button>
           <span className="text-white">|</span>
           <h1 className="text-xl">Stacks</h1>
-        </div>
+        </div> */}
         {/* <button
           onClick={toggleModal}
           className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2"
@@ -103,7 +103,7 @@ function Stacks() {
         </button> */}
       </div>
 
-      <h1 className="text-2xl font-semibold text-white mb-2 ">Stacks</h1>
+      <h1 className="text-3xl font-semibold text-white my-10 ">Stacks</h1>
 
       {/* <div className="relative mb-6">
         <input
@@ -120,7 +120,7 @@ function Stacks() {
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Search Stacks"
-            className=" bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700"
+            className=" bg-[#2F3039] rounded-md px-4 py-2 pl-10 border border-gray-700 w-[400px]"
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
         </div>

@@ -34,15 +34,15 @@ function Dashboard() {
     <div className="py-8">
       {/* Header */}
       <div className="flex items-center gap-3 text-white mb-6  px-8">
-        <Link to="/" className="hover:text-white flex items-center gap-2">
+        {/* <Link to="/" className="hover:text-white flex items-center gap-2">
           <span>←</span>
           <span>Back</span>
         </Link>
         <span className="text-white">|</span>
-        <span>Dashboard</span>
+        <span>Dashboard</span> */}
       </div>
 
-      <h1 className="text-2xl font-semibold text-white mb-2 px-8">Dashboard</h1>
+      <h1 className="text-3xl font-semibold text-white my-10 ml-7">Dashboard</h1>
       <p className="text-white mb-8 px-8">Overview of your environments</p>
 
       {/* Stats Grid */}
